@@ -1,0 +1,43 @@
+# B5 qa227 (29 Oct 2026): helio-lab-only onboarding fixture for TC-199. Synthetic; nothing is deployed.
+name: b5-lab
+run-name: ${{ inputs.helio_execution_id || github.run_id }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        type: choice
+        required: false
+        default: b5-lab-test
+        options: [b5-lab-test]
+      helio_execution_id:
+        type: string
+        required: false
+        default: ''
+      helio_release_id:
+        type: string
+        required: false
+        default: ''
+      workflow_revision:
+        type: string
+        required: false
+        default: ''
+      release_version:
+        type: string
+        required: false
+        default: ''
+
+permissions:
+  contents: read
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    environment: b5-lab-test
+    steps:
+      - name: Synthetic work
+        shell: bash
+        run: |
+          echo "b5-lab run=$GITHUB_RUN_ID attempt=$GITHUB_RUN_ATTEMPT"
+          sleep 10
